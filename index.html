@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>angular</title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+
+名: <input type="text" ng-model="firstName"><br>
+姓: <input type="text" ng-model="lastName"><br>
+<br>
+姓名: {{firstName + " " + lastName}}
+
+</div>
+<div id="app2" ng-init="firstName='John'">
+
+ 	<p>在输入框中尝试输入：</p>
+ 	<p>姓名：<input type="text" ng-model="firstName"></p>
+ 	<p>你输入的为： {{ firstName }}</p>
+
+</div>
+
+<div id="app3" ng-init="names=[
+{name:'Jani',country:'Norway'},
+{name:'Hege',country:'Sweden'},
+{name:'Kai',country:'Denmark'}]">
+
+<p>循环对象：</p>
+<ul>
+  <li ng-repeat="x in names">
+    {{ x.name + ', ' + x.country }}
+  </li>
+</ul>
+
+</div>
+
+<div id="app4" ng-controller="customersCtrl"> 
+
+<ul>
+  <li ng-repeat="x in names">
+    {{ x.Name + ', ' + x.Country }}
+  </li>
+</ul>
+
+</div>
+
+<script src="js/angular.min.js"></script>
+<script>
+var app2 = angular.module('app2', []);
+angular.bootstrap(document.getElementById("app2"), ['app2']);
+var app3 = angular.module('app3', []);
+angular.bootstrap(document.getElementById("app3"), ['app3']);
+</script>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.firstName= "John";
+    $scope.lastName= "Doe";
+});
+</script>
+
+<script>
+var app4 = angular.module('app4', []);
+app4.controller('customersCtrl', function($scope, $http) {
+    //$http.get("http://www.runoob.com/try/angularjs/data/Customers_JSON.php").success(function(response) {$scope.names = response.records;});
+});
+angular.bootstrap(document.getElementById("app4"), ['app4']);
+</script>
+
+</body>
+</html>
