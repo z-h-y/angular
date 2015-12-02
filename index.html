@@ -11,7 +11,26 @@
 姓: <input type="text" ng-model="lastName"><br>
 <br>
 姓名: {{firstName + " " + lastName}}
+<br>
 
+<button ng-click="toggle()">>隐藏/显示</button>
+
+<p ng-hide="myVar">
+名: <input type="text" ng-model="firstName"><br>
+姓名: <input type="text" ng-model="lastName"><br>
+<br>
+Full Name: {{firstName + " " + lastName}}
+</p>
+  <form novalidate>
+    First Name:<br>
+    <input type="text" ng-model="user.firstName"><br>
+    Last Name:<br>
+    <input type="text" ng-model="user.lastName">
+    <br><br>
+    <button ng-click="reset()">RESET</button>
+  </form>
+  <p>form = {{user}}</p>
+  <p>master = {{master}}</p>
 </div>
 <div id="app2" ng-init="firstName='John'">
 
@@ -38,32 +57,111 @@
 <div id="app4" ng-controller="customersCtrl"> 
 
 <ul>
-  <li ng-repeat="x in names">
-    {{ x.Name + ', ' + x.Country }}
+  <li ng-repeat="x in names | orderBy : 'Country'">
+    {{ x.Name + ', ' + (x.Country | uppercase)}}
   </li>
 </ul>
+<table>
+<tr ng-repeat="x in names">
+<td>{{ $index + 1 }}</td>
+<td ng-if="$odd" style="background-color:#f1f1f1">{{ x.Name }}</td>
+<td ng-if="$even">{{ x.Name }}</td>
+<td ng-if="$odd" style="background-color:#f1f1f1">{{ x.Country }}</td>
+<td ng-if="$even">{{ x.Country }}</td>
+</tr>
+</table>
+<button ng-click="count = count + 1">点我！</button>
+
+<p>{{ count }}</p>
 
 </div>
 
+<div id="app5" ng-init="mySwitch=true">
+
+<p>
+<button ng-disabled="mySwitch">点我！</button>
+</p>
+
+<p>
+<input type="checkbox" ng-model="mySwitch">按钮
+</p>
+<p>
+{{ mySwitch }}
+</p>
+<p ng-show="true">我是可见的。</p>
+
+<p ng-show="false">我是不可见的。</p>
+
+<p ng-hide="true">我是不可见的。</p>
+
+<p ng-hide="false">我是可见的。</p>
+</div>
+<form  id="app6"  ng-controller="validateCtrl"
+name="myForm" novalidate>
+
+<p>用户名:<br>
+  <input type="text" name="user" ng-model="user" required>
+  <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+  <span ng-show="myForm.user.$error.required">用户名是必须的。</span>
+  </span>
+</p>
+
+<p>邮箱:<br>
+  <input type="email" name="email" ng-model="email" required>
+  <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+  <span ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+  <span ng-show="myForm.email.$error.email">非法的邮箱。</span>
+  </span>
+</p>
+
+<p>
+  <input type="submit"
+  ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||
+  myForm.email.$dirty && myForm.email.$invalid">
+</p>
+
+</form>
+
 <script src="js/angular.min.js"></script>
+<script>
+var app6 = angular.module('app6', []);
+app6.controller('validateCtrl', function($scope) {
+    $scope.user = 'John Doe';
+    $scope.email = 'john.doe@gmail.com';
+});
+angular.bootstrap(document.getElementById("app6"), ['app6']);
+</script>
+
 <script>
 var app2 = angular.module('app2', []);
 angular.bootstrap(document.getElementById("app2"), ['app2']);
 var app3 = angular.module('app3', []);
 angular.bootstrap(document.getElementById("app3"), ['app3']);
+var app5 = angular.module('app5', []);
+angular.bootstrap(document.getElementById("app5"), ['app5']);
 </script>
 <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
     $scope.firstName= "John";
     $scope.lastName= "Doe";
+    $scope.myVar = false;
+    $scope.toggle = function() {
+        $scope.myVar = !$scope.myVar;
+    };
+    $scope.master = {firstName: "John", lastName: "Doe"};
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.master);
+    };
+    $scope.reset();
 });
 </script>
 
 <script>
 var app4 = angular.module('app4', []);
 app4.controller('customersCtrl', function($scope, $http) {
-    //$http.get("http://www.runoob.com/try/angularjs/data/Customers_JSON.php").success(function(response) {$scope.names = response.records;});
+  $scope.count = 0;
+    $http.get("Customers_JSON.php").success(function(response) {$scope.names = response.records;});
 });
 angular.bootstrap(document.getElementById("app4"), ['app4']);
 </script>
