@@ -1,0 +1,163 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+*:focus {
+	outline: none !important;
+}
+
+body {
+	font-family: 'Microsoft Yahei',Arial,'\5b8b\4f53';
+	font-size: 13px;
+}
+
+a, a:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+ul, li {
+	list-style-type: none;
+}
+
+img {
+	cursor: pointer;
+}
+
+/* header */
+#app-header .navbar-brand {
+	font-size: 15px;
+}
+
+#app-header .dropdown-menu {
+	font-size: 13px;
+}
+
+.m-b-15 {
+	margin-bottom: 15px;
+}
+
+#page-wrapper.before-login {
+	margin: 0;
+}
+
+.login-panel {
+	margin-top: 0;
+}
+
+.login-title {
+	margin: 12% 0 2%;
+	text-align: center;
+}
+
+#myModal {
+	padding-top: 10%;
+}
+
+#myModal.roleModal {
+	padding-top: 0;
+}
+
+.modal-top {
+	margin-top: 20%;
+}
+
+.form-inline .form-control{
+	width: 100%;
+}
+
+/* cover jquery.datatables.min.js */
+table.dataTable thead th {
+	padding: 10px 10px;
+}
+
+/* textAngular */
+.ta-toolbar {
+	background-color: #F0F0F0;
+	padding: 10px 10px 5px;
+	margin-left: 0px; /* Override bootstrap */
+	border: 1px solid #EEE;
+}
+
+.ta-toolbar .btn-group {
+	margin-bottom: 5px;
+}
+
+.ta-editor, .white-box {
+	padding: 10px;
+	background-color: #FFF;
+	border: 1px solid #EEE;
+}
+
+textarea.ta-bind {
+	width: 100%;
+}
+
+/* override loading-bar */
+#loading-bar .bar {
+	background: #f56;
+}
+
+#loading-bar .peg {
+	-moz-box-shadow: #f56 1px 0 6px 1px;
+	-ms-box-shadow: #f56 1px 0 6px 1px;
+	-webkit-box-shadow: #f56 1px 0 6px 1px;
+	box-shadow: #f56 1px 0 6px 1px;
+}
+
+#loading-bar-spinner .spinner-icon {
+	border-top-color:  #f56;
+	border-left-color: #f56;
+}
+
+/* error message */
+#errorMsg {
+	position: fixed;
+	z-index: 9999;
+	top: 0px;
+	width: 100%;
+}
+
+/* datatable */
+.table-width-1000 .dataTables_scrollHeadInner,
+.table-width-1000 .dataTables_scrollHeadInner table,
+.table-width-1000 .dataTables_scrollBody table {
+	width: 100% !important;
+	min-width: 1000px !important;
+}
+
+.table-width-1200 .dataTables_scrollHeadInner,
+.table-width-1200 .dataTables_scrollHeadInner table,
+.table-width-1200 .dataTables_scrollBody table {
+	width: 100% !important;
+	min-width: 1200px !important;
+}
+
+.table-width-1400 .dataTables_scrollHeadInner,
+.table-width-1400 .dataTables_scrollHeadInner table,
+.table-width-1400 .dataTables_scrollBody table {
+	width: 100% !important;
+	min-width: 1400px !important;
+}
+
+.table-width-1600 .dataTables_scrollHeadInner,
+.table-width-1600 .dataTables_scrollHeadInner table,
+.table-width-1600 .dataTables_scrollBody table {
+	width: 100% !important;
+	min-width: 1600px !important;
+}
+
+.table-width-1800 .dataTables_scrollHeadInner,
+.table-width-1800 .dataTables_scrollHeadInner table,
+.table-width-1800 .dataTables_scrollBody table {
+	width: 100% !important;
+	min-width: 1800px !important;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+	border-bottom: none;
+}
+
+table.dataTable thead th {
+	border-bottom: none;
+}

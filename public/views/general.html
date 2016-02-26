@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5>主站数据趋势</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table  dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-right">日期</th>
+                    <th class="text-right">浏览量PV</th>
+                    <th class="text-right">访客数UV</th>
+                    <th class="text-right">新访客数</th>
+                    <th class="text-right">IP</th>
+                    <th class="text-right">跳出率</th>
+                    <th class="text-right">平均访问时长(秒)</th>
+                    <!-- <th class="text-right">平均访问页面</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="summary in summaryList">
+                    <td class="text-right">{{ summary.days }}</td>
+                    <td class="text-right">{{ summary.pv | number:0 }}</td>
+                    <td class="text-right">{{ summary.uv | number:0 }}</td>
+                    <td class="text-right">{{ summary.nv | number:0 }}</td>
+                    <td class="text-right">{{ summary.ip | number:0 }}</td>
+                    <td class="text-right">{{ summary.bounceRate }}</td>
+                    <td class="text-right">{{ summary.avgDuration | number:0 }}</td>
+                    <!-- <td class="text-right">{{ summary.avgPage | number:0 }}</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

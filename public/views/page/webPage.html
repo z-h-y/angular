@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5>主站www.appgame.com</h5>
+    </div>
+</div>
+<div class="row m-b-15">
+    <div class="col-md-3 text-left" style="margin-top:25px;">
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._1day}" ng-click="setRange('day')">今日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._7days}" ng-click="setRange('week')">近7日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._30days}" ng-click="setRange('month')" >近30日</button>
+    </div>
+    <div class="col-md-3">
+        <label for="title">实际时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="actualDateOpts" type="text" ng-model="actualDate" />
+    </div>
+    <div class="col-md-2 text-center" style="margin-top:25px;">
+        <label for="isCompared">对比其它时段</label>
+        <input type="checkbox" name="isCompared" value="100" id="isCompared" ng-model="isCompared" ng-change="isComparedWatcher()" />
+    </div>
+    <div class="col-md-3" ng-show="isCompared">
+        <label for="title">对比时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="compareDateOpts" type="text" ng-model="compareDate" />
+    </div>
+</div>
+
+<tabset>
+    <tab>
+        <tab-heading><i class="fa fa-star"></i>&nbsp&nbsp概况</tab-heading>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>浏览量PV</th>
+                            <th>访客数UV</th>
+                            <th>新访客数</th>
+                            <th>IP</th>
+                            <th>跳出率</th>
+                            <th>平均访问时长(秒)</th>
+                            <!-- <th>平均访问页面</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="summary in summaryList">
+                            <td width="12%">{{ summary.date }}</td>
+                            <td>{{ summary.pv | number: 0 }}</td>
+                            <td>{{ summary.uv | number: 0 }}</td>
+                            <td>{{ summary.nv | number: 0 }}</td>
+                            <td>{{ summary.ip | number: 0 }}</td>
+                            <td>{{ summary.bounceRate }}</td>
+                            <td>{{ summary.avgDuration }}</td>
+                            <!-- <td>{{ summary.avgPage }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control input-sm" ng-model="urlKeyWord" placeholder="输入该站点网址URL"/>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-default btn-sm" title="查询" ng-click="urlQuery(urlKeyWord)">查询</button>
+            </div>
+        </div> -->
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>域名</th>
+                            <th>浏览量PV</th>
+                            <th>访客数UV</th>
+                            <th>新访客数</th>
+                            <th>IP</th>
+                            <th>跳出率</th>
+                            <th>平均停留时长(秒)</th>
+                            <!-- <th>平均访问页面</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="respondent in respondentList">
+                            <td><a ng-href="http://{{ respondent.title }}" target="_blank">{{ respondent.title }}</a>&nbsp&nbsp&nbsp&nbsp<a href="#" title="走势图" ng-click="viewChart(respondent.title)"><i class="fa fa-bar-chart-o"></i></a></td>
+                            <td>{{ respondent.pv }}</td>
+                            <td>{{ respondent.uv }}</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>{{ respondent.bounceRate }}</td>
+                            <td>{{ respondent.avgDuration }}</td>
+                            <!-- <td>{{ respondent.avgPage }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </tab>
+    <tab disable="true"><tab-heading><i class="fa fa-sign-in"></i>&nbsp&nbsp入口页</tab-heading>Short Labeled Justified content</tab>
+    <tab disable="true"><tab-heading><i class="fa fa-sign-out"></i>&nbsp&nbsp退出页</tab-heading>Long Labeled Justified content</tab>
+</tabset>

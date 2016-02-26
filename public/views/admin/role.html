@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                角色表
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-12">
+                    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" dt-instance="dtInstanceCb" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+                        <thead>
+                        <tr role="row">
+                            <th>ID</th>
+                            <th>角色名</th>
+                            <th>显示角色名</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr role="row">
+                            <th>
+                                <div class="form-group">
+                                    <label>
+                                        <input class="form-control input-sm" type="text" name="id" ng-model="role.id" readonly>
+                                    </label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control input-sm" name="name" ng-model="role.name" value="">
+                                    </label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control input-sm" name="name" ng-model="role.displayName" value="">
+                                    </label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" class="form-control input-sm" name="description" ng-model="role.description" value="">
+                                    </label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-sm" ng-click="saveRole()" title="保存"><i class="fa fa-save"></i></button>
+                                    <button type="submit" class="btn btn-alert btn-sm" ng-click="cancelEdit()" title="清空"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat="role in roleList" role="row" ng-class="{warning : role.id == $parent.role.id }">
+                            <td>{{ role.id }}</td>
+                            <td>{{ role.name }}</td>
+                            <td>{{ role.displayName }}</td>
+                            <td>{{ role.description }}</td>
+                            <td>
+                                <button type="button" ng-disabled="editDisabled($index)" ng-click="editRole($index)" class="btn btn-warning btn-sm" title="编辑"><i class="fa fa-edit"></i></button>
+                                <button type="submit" ng-disabled="editDisabled($index)" data-toggle="modal" data-target="#myModal" class="btn btn-warning btn-sm" ng-click="setRolePermission($index)" title="设置权限"><i class="fa fa-lock"></i></button>
+                                <!-- <button type="button" ng-click="deleteUser($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button> -->
+
+                                <div class="modal fade roleModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="关闭">×</button>
+                                                <h5 class="modal-title" id="myModalLabel">权限设置</h5>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="panel panel-default" ng-repeat="category in permissionCategories">
+                                                <div class="panel-heading">{{category}}</div>
+                                                  <div class="panel-body" ng-repeat="type in permissionType">
+                                                    <h4><small>{{ type.name }}：</small></h4>
+                                                    <label ng-repeat="permission in permissionList | filter: { _categorieName: category, type : $index + 1 } : true| orderBy: 'id'">
+                                                        <input type="checkbox" value="{{permission.displayName}}" ng-model="permission.status">&nbsp&nbsp{{ permission.displayName }}&nbsp&nbsp
+                                                    </label>
+                                                  </div>
+
+                                                  <div class="panel-footer">
+                                                    <input type="checkbox" value="" ng-model="selectedAll.status[$index]" ng-checked="selectedAll.status[$index]" ng-change="changeStatus($index)">&nbsp&nbsp全选
+                                                  </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="closeModal" class="btn btn-default b't'n" data-dismiss="modal" title="关闭">关闭</button>
+                                                <button type="button" class="btn btn-primary" ng-click="saveRolePermission()" title="保存">保存</button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                <!-- /.modal-dialog -->
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

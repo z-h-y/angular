@@ -1,0 +1,34 @@
+<div data-ng-include="'views/header.html'"></div>
+
+<div data-ng-include="'views/aside.html'"></div>
+
+<div id="errorMsg" class="alert alert-danger" ng-show="globals.errors.length">
+    <p ng-repeat="error in globals.errors">{{ error }}</p>
+</div>
+
+<div class="wrapper">
+    <div id="page-wrapper" ng-class="loginPageClass()">
+        <div class="row">
+            <div class="col-lg-12">
+                <ol class="breadcrumb" style="margin:20px 0;" ng-show="globals.user.login">
+                    当前位置：<li ng-repeat="displayName in displayNameList">{{ displayName }}</li>
+                </ol>
+               <!--  <div class="panel panel-info" style="margin-top:20px;" ng-show="globals.user.login">
+                    <div class="panel-heading">
+                        <a href="#admin/user" class="btn btn-info">User</a>
+                        <a href="#admin/role" class="btn btn-info">Role</a>
+                        <a href="#admin/permission" class="btn btn-info">Permission</a>
+                    </div> -->
+                    <!-- <div class="panel-body">
+
+                    </div> -->
+                <!-- </div> -->
+                <div ui-view></div>
+                <!-- <h1 class="page-header">Admin | User</h1> -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+    </div>
+</div>
+

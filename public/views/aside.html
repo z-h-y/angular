@@ -1,0 +1,52 @@
+<div class="navbar-default sidebar" role="navigation" ng-show="globals.user.login">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+
+            <li class="">
+                <div class="well well-sm">
+                    <h4 style="text-align: center;">{{ globals.user.name }}
+                        <span class="badge progress-bar-info" style="vertical-align: middle" ng-repeat="role in globals.user.roles">{{role.displayName}}</span>
+                    </h4>
+                </div>
+            </li>
+
+            <!-- 一级 -->
+            <li class="side-menu" ng-repeat="menuItem in menuList | filter: { visible: true }" ng-show="menuResolved">
+                <a ui-sref="{{menuItem.url ? menuItem.url : '.'}}" ui-sref-active="active">
+                    <i class="fa {{ menuItem.icon }} fa-fw"></i>
+                    {{ menuItem.displayName }}
+                    <span ng-if="menuItem.children.length" class="fa arrow"></span>
+                </a>
+                <!-- 二级 -->
+                <ul class="nav nav-second-level" ng-if="menuItem.children.length">
+                    <li ng-repeat="item in menuItem.children | filter: { visible: true }">
+                        <a ui-sref="{{item.url ? item.url : '.'}}" ui-sref-active="active">
+                            <i class="fa {{ item.icon }} fa-fw"></i>
+                            {{ item.displayName }}
+                            <span ng-if="item.children.length" class="fa arrow"></span>
+                        </a>
+                        <!-- 三级 -->
+                        <ul class="nav nav-third-level" ng-if="item.children.length">
+                            <li ng-repeat="secondItem in item.children | filter: { visible: true }">
+                                <a ui-sref="{{secondItem.url ? secondItem.url : '.'}}" ui-sref-active="active">
+                                    <i class="fa {{ secondItem.icon }} fa-fw"></i>
+                                    {{ secondItem.displayName }}
+                                    <span ng-if="secondItem.children.length" class="fa arrow"></span>
+                                </a>
+                                <!-- 四级 -->
+                                <ul class="nav nav-fourth-level" ng-if="secondItem.children.length">
+                                    <li ng-repeat="thirdItem in secondItem.children | filter: { visible: true }">
+                                        <a ui-sref="{{thirdItem.url ? thirdItem.url : '.'}}" ui-sref-active="active">
+                                            <i class="fa {{ thirdItem.icon }} fa-fw"></i>
+                                            {{ thirdItem.displayName }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

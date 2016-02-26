@@ -1,0 +1,69 @@
+<header id="app-header" class="main-header" ng-show="globals.user.login">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{ appTitle }}</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#" data-toggle="modal" data-target="#passwordModal" ng-click="preparePassword()"><i class="fa fa-key fa-fw"></i> 修改密码</a>
+                    <li class="divider"></li>
+                    <li><a href="#" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+
+        <!-- /.navbar-static-side -->
+    </nav>
+</header>
+
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" title="关闭">×</button>
+                <h5 class="modal-title" id="passwordModalLabel">修改密码</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    密码至少8位，由数字和字母组成！
+                </p>
+                <form role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control input-sm" placeholder="旧密码" name="oldPassword" type="password" autofocus ng-model="passwordModel.oldPassword">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-sm" placeholder="新密码" name="newPassword" type="password" value="" ng-model="passwordModel.newPassword">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control input-sm" placeholder="新密码重复" name="newPasswordRepeat" type="password" value="" ng-model="passwordModel.newPasswordRepeat">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeModal" class="btn btn-default btn-sm" data-dismiss="modal" title="关闭">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="updatePassword()" title="保存" ng-disabled="!canUpdatePassword()">保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5><strong>{{ targetUrl }}</strong></h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 text-left" style="margin-top:25px;">
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._1day}" ng-click="setRange('day')">今日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._7days}" ng-click="setRange('week')">近7日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._30days}" ng-click="setRange('month')" >近30日</button>
+    </div>
+    <div class="col-md-3">
+        <label for="title">实际时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="actualDateOpts" type="text" ng-model="actualDate" />
+    </div>
+    <div class="col-md-2 text-center" style="margin-top:25px;">
+        <label for="isCompared">对比其它时段</label>
+        <input type="checkbox" name="isCompared" value="100" id="isCompared" ng-model="isCompared" ng-change="isComparedWatcher()" />
+    </div>
+    <div class="col-md-3" ng-show="isCompared">
+        <label for="title">对比时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="compareDateOpts" type="text" ng-model="compareDate" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>浏览量PV</th>
+                    <th>访客数UV</th>
+                    <th>新访客数</th>
+                    <th>IP</th>
+                    <th>跳出率</th>
+                    <th>平均访问时长(秒)</th>
+                    <!-- <th>平均访问页面</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="summary in summaryList">
+                    <td>{{ summary.date }}</td>
+                    <td>{{ summary.pv | number: 0 }}</td>
+                    <td>{{ summary.uv | number: 0 }}</td>
+                    <td>--</td>
+                    <td>{{ summary.ip | number: 0 }}</td>
+                    <td>{{ summary.bounceRate }}</td>
+                    <td>{{ summary.avgDuration }}</td>
+                    <!-- <td>{{ summary.avgPage }}</td> -->
+             </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" style="margin-top:15px;margin-bottom: 15px;">
+    <div class="col-sm-6">
+        <div
+            isteven-multi-select
+            input-model="indicatorsInput"
+            output-model="indicatorsOutput"
+            button-label="icon name"
+            item-label="icon name maker"
+            tick-property="ticked",
+            translation="localLang",
+            helper-elements="",
+            on-item-click = "funcClick(data)"
+            >
+        </div>
+    </div>
+
+    <div class="col-sm-6 text-right" style="margin-top:5px;">
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.hour}" ng-click="setTimeRule('hour')" ng-disabled="isDisabled">按时</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.day}" ng-click="setTimeRule('day')" ng-disabled="isDisabled">按日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.week}" ng-click="setTimeRule('week')" ng-disabled="isDisabled">按周</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.month}" ng-click="setTimeRule('month')" ng-disabled="isDisabled">按月</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <highchart id="chart1" config="chartConfig"></highchart>
+    </div>
+</div>

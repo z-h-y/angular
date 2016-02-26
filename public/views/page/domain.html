@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5>主站www.appgame.com</h5>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 text-left" style="margin-top:25px;">
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._1day}" ng-click="setRange('day')">今日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._7days}" ng-click="setRange('week')">近7日</button>
+        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeSign._30days}" ng-click="setRange('month')" >近30日</button>
+    </div>
+    <div class="col-md-3">
+        <label for="title">实际时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="actualDateOpts" type="text" ng-model="actualDate" />
+    </div>
+    <div class="col-md-2 text-center" style="margin-top:25px;">
+        <label for="isCompared">对比其它时段</label>
+        <input type="checkbox" name="isCompared" value="100" id="isCompared" ng-model="isCompared" ng-change="isComparedWatcher()" />
+    </div>
+    <div class="col-md-3" ng-show="isCompared">
+        <label for="title">对比时间：</label>
+        <input date-range-picker class="form-control input-sm date-picker" options="compareDateOpts" type="text" ng-model="compareDate" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table  dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>浏览量PV</th>
+                    <th>访客数UV</th>
+                    <th>新访客数</th>
+                    <th>IP</th>
+                    <th>跳出率</th>
+                    <th>平均访问时长(秒)</th>
+                    <th>平均访问页面</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="summary in summaryList">
+                    <td width="12%">{{ summary.displayDate }}</td>
+                    <td>{{ summary.pv | number:0 }}</td>
+                    <td>{{ summary.uv | number:0 }}</td>
+                    <td>{{ summary.nv | number:0 }}</td>
+                    <td>{{ summary.ip | number:0 }}</td>
+                    <td>{{ summary.jp }}</td>
+                    <td>{{ summary.st | number:0 }}</td>
+                    <td>{{ summary.pn | number:0 }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table dt-options="dtOptions" dt-columns="dtColumns" class="table">
+            <thead>
+                <tr>
+                    <th>域名</th>
+                    <th>浏览量PV</th>
+                    <th>访客数UV</th>
+                    <th>新访客数</th>
+                    <th>IP</th>
+                    <th>跳出率</th>
+                    <th>平均停留时长</th>
+                    <th>平均访问页面</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in items[0] track by $index">
+                <tr ng-init="b = items[0][$index]">
+                    <td>{{ $index + 1 }}、<a href="http://{{ b[0] }}" target="_blank">{{ b[0] }}</a></td>
+                    <td colspan="7"></td>
+                </tr>
+                <tr ng-init="a = items[1][$index]">
+                    <td>{{ a[0] }}&nbsp&nbsp&nbsp&nbsp<a href="#" title="走势图"><i class="fa fa-bar-chart-o"></i></a></td>
+                    <td>{{ a[1] }}</td>
+                    <td>{{ a[2] }}</td>
+                    <td>{{ a[3] }}</td>
+                    <td>{{ a[4] }}</td>
+                    <td>{{ a[5] }}</td>
+                    <td>{{ a[6] }}</td>
+                    <td>{{ a[7] }}</td>
+                </tr>
+                <tr ng-init="c = items[2][$index]">
+                    <td>{{ c[0] }}&nbsp&nbsp&nbsp&nbsp<a href="#" title="走势图"><i class="fa fa-bar-chart-o"></i></a></td>
+                    <td>{{ c[1] }}</td>
+                    <td>{{ c[2] }}</td>
+                    <td>{{ c[3] }}</td>
+                    <td>{{ c[4] }}</td>
+                    <td>{{ c[5] }}</td>
+                    <td>{{ c[6] }}</td>
+                    <td>{{ c[7] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
