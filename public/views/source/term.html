@@ -49,50 +49,6 @@
     </div>
 </div>
 
-<div class="row" style="margin-bottom: 15px;">
-    <div class="col-sm-6">
-        <div
-            isteven-multi-select
-            input-model="indicatorsInput"
-            output-model="indicatorsOutput"
-            button-label="icon name"
-            item-label="icon name maker"
-            tick-property="ticked",
-            translation="localLang",
-            helper-elements="",
-            on-item-click = "funcClick(data)"
-            >
-        </div>
-    </div>
-
-    <div class="col-sm-6 text-right" style="margin-top:5px;">
-        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.hour}" ng-click="setTimeRule('hour')" ng-disabled="isDisabled">按时</button>
-        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.day}" ng-click="setTimeRule('day')" ng-disabled="isDisabled">按日</button>
-        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.week}" ng-click="setTimeRule('week')" ng-disabled="isDisabled">按周</button>
-        <button type="button" class="btn btn-default btn-sm" ng-class="{active:timeRule.month}" ng-click="setTimeRule('month')" ng-disabled="isDisabled">按月</button>
-    </div>
-</div>
-
-<div class="row" style="margin-bottom: 15px;" ng-show="isCompared">
-    <div class="col-sm-6">
-        <tabset>
-            <tab heading="{{tab.title}}" ng-repeat="tab in tabs" active="tab.active" select="changeChart()"></tab>
-        </tabset>
-    </div>
-</div>
-
-<div class="row" style="width:40%; display: inline-block">
-    <div class="col-md-12">
-        <highchart id="chart2" config="chartConfig2"></highchart>
-    </div>
-</div>
-
-<div class="row" style="width: 60%;display: inline-block">
-    <div class="col-md-12">
-        <highchart id="chart1" config="chartConfig"></highchart>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-12">
         <!-- <div class="panel panel-primary" style="margin-top:20px;">
@@ -101,7 +57,7 @@
                 <table datatable="ng" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>来源</th>
+                            <th>关键词</th>
                             <th>浏览量PV</th>
                             <th>访客数UV</th>
                             <th>新访客数</th>

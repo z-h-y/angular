@@ -82,18 +82,18 @@
         return siteData;
       },
 
-      sourceAnalysis: function(type, date, timeUnit, items) {
+      sourceAnalysis: function(type, date, url, timeUnit, items) {
         var sDate = JSON.stringify(date);
         var requestUrl;
         switch (type) {
           case 'summary':
-            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate);
+            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate + '&url=' + url);
           break;
           case 'chart':
-            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate + '&timeUnit=' + timeUnit + '&items=' + JSON.stringify(items));
+            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate + '&url=' + url + '&timeUnit=' + timeUnit + '&items=' + JSON.stringify(items));
           break;
           case 'article':
-            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate);
+            requestUrl = $http.get('/data.php?type=' + type + '&filter=' + sDate + '&url=' + url);
           break;
         }
 

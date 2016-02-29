@@ -1,6 +1,7 @@
 <?php
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $filter = isset($_GET['filter']) ? json_decode($_GET['filter']) : '';
+$url = isset($_GET['url']) ? $_GET['url'] : '';
 $timeUnit = isset($_GET['timeUnit']) ? $_GET['timeUnit'] : '';
 $items = isset($_GET['items']) ? $_GET['items'] : '';
 $date = $filter->startDate.'~'.$filter->endDate;

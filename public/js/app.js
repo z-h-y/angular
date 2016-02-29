@@ -281,6 +281,7 @@
       user.unavailable = true;
       $location.path('/login');
     }
+    $rootScope.stationList = Config.stationList;
   }
 
 })();

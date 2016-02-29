@@ -11,6 +11,29 @@
 
     var appTitle = 'AppGame主站数据统计后台';
 
+    var stationList = [
+      {
+        name: 'all',
+        displayName: '全部站点概况'
+      },
+      {
+        name: 'www.appgame.com',
+        displayName: '主站数据'
+      },
+      {
+        name: 'app.appgame.com',
+        displayName: '游戏站数据'
+      },
+      {
+        name: 'jp.appgame.com',
+        displayName: '日区数据'
+      },
+      {
+        name: 'XX.appgame.com',
+        displayName: 'XX专区数据'
+      }
+    ];
+
     var menuList = [
       {
         name: 'dashboard',
@@ -276,6 +299,7 @@
 
     return {
       appTitle: appTitle,
+      stationList: stationList,
       prepareDynamicMenu: prepareDynamicMenu,
       configRoutes: configRoutes,
       menuList: menuList,

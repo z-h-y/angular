@@ -228,6 +228,8 @@
 
     $scope.articleList = [];
 
+    $scope.pieDataList = [];
+
     $scope.tabs = [];
 
     $scope.funcClick = funcClick;
@@ -264,6 +266,7 @@
 
       $scope.indicatorsInput[0].ticked = true;
       $scope.indicatorsOutput = [$scope.indicatorsInput[0]];
+      $scope.tabIndex = 0;
 
       setRange('day');
 
@@ -286,18 +289,18 @@
       var chartPromise = $q.all(arr);
 
       chartPromise.then(function(data) {
-        var date = _.map(data[0].data.data[0].data, 'date');
+        var index = 0;
+
+        if (data.length === 2) {
+          index = $scope.tabIndex == 0 ? 1 : 0;
+        }
+
+        var date = _.map(data[index].data.data[0].data, 'date');
         $scope.chartConfig.xAxis.categories = date;
-        _.forEach(data[0].data.data, function(n, key) {
+        _.forEach(data[index].data.data, function(n, key) {
           var dataList = _.map(n.data, items[0]);
           $scope.chartConfig.series[key] = {id: key+1, data: dataList, name: n.name, visible: true};
         });
-
-        if (data.length === 2) {
-          var dataList2 = _.map(data[1].data.data, items[0]);
-          $scope.chartConfig.series[0].name = $scope.actualDate.startDate + '~' + $scope.actualDate.endDate;
-          $scope.chartConfig.series[1] = {id: 2, data: dataList2, name: $scope.compareDate.startDate + '~' + $scope.compareDate.endDate, visible: true}
-        }
 
       });
     }
@@ -325,12 +328,10 @@
         }
 
         $scope.tabs = [
-          {title : cStartDate + '~' + cEndDate},
+          {title : $scope.compareDate.startDate + '~' + $scope.compareDate.endDate},
           {title : aStartDate + '~' + aEndDate}
         ];
       }
-
-      //$scope.articleListTemp = [];
 
       Actions.sourceAnalysis('summary', {'startDate': aStartDate, 'endDate': aEndDate })
         .then(function(data) {
@@ -348,11 +349,12 @@
         });
 
       _printChart();
+      $scope.pieDataList = [];
 
       Actions.sourceAnalysis('article', {'startDate': aStartDate, 'endDate': aEndDate })
         .then(function(data) {
           $scope.articleList = data.data.data;
-          //$scope.articleListTemp.push(data.data.data);
+          $scope.pieDataList.unshift(data.data.data);
           if ($scope.isCompared) {
             return Actions.sourceAnalysis('article', $scope.compareDate);
           } else {
@@ -362,23 +364,26 @@
         })
         .then(function(data) {
           if (data) {
-            //$scope.articleListTemp.push(data.data.data);
-            //$scope.articleList.push(data.data.data);
-            console.log($scope.articleList);
+            _.forEach($scope.articleList, function(n, key) {
+              n.compareData = data.data.data[key];
+            });  
+            $scope.pieDataList.unshift(data.data.data);
+            _printPie();
           }
         });
     }
 
     function _printPie() {
+
       var items = _.map($scope.indicatorsOutput, 'value');
-      var dataList2 = [];
-      _.forEach($scope.articleList, function(n, key) {
-        dataList2[key] = {};
-        dataList2[key].name = n.title;
-        dataList2[key].y = n[items[0]];
+      var dataList = [];
+      _.forEach($scope.pieDataList[$scope.tabIndex], function(n, key) {
+        dataList[key] = {};
+        dataList[key].name = n.title;
+        dataList[key].y = n[items[0]];
       });
       var indicator = _.find($scope.indicatorsOutput, 'value', items[0]);
-      $scope.chartConfig2.series[0] = {data: dataList2, name: indicator.title, visible: true};
+      $scope.chartConfig2.series[0] = {data: dataList, name: indicator.title, visible: true};
     }
 
     function funcClick(data) {
@@ -414,7 +419,9 @@
     }
 
     function changeChart() {
-
+      $scope.tabIndex = this.$index;
+      _printChart();
+      _printPie();
       //$scope.articleList = '';
     }
 
@@ -429,6 +436,10 @@
         var target = _.find($scope.indicatorsInput, {'id': $scope.indicatorsOutput[1].id});
         target.ticked = false;
         $scope.indicatorsOutput = [$scope.indicatorsOutput[0]];
+      }
+
+      if (!$scope.isCompared) {
+        $scope.tabIndex = 0;
       }
 
       _getData();

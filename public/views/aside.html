@@ -10,6 +10,14 @@
                 </div>
             </li>
 
+            <li class="">
+                <select class="form-control">
+                    <option ng-repeat="list in stationList" value="{{list.name}}">
+                        {{list.displayName}}
+                    </option>
+                </select>
+            </li>
+
             <!-- 一级 -->
             <li class="side-menu" ng-repeat="menuItem in menuList | filter: { visible: true }" ng-show="menuResolved">
                 <a ui-sref="{{menuItem.url ? menuItem.url : '.'}}" ui-sref-active="active">
